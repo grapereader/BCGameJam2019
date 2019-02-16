@@ -8,15 +8,10 @@
 #include "const.h"
 #include "ui.h"
 
-static void draw_ui(float delta) {
+static void draw_ui(float delta)
+{
     ui_draw_border();
-
-    move(1, WIDTH + 2);
-
-    char buffer[32];
-    snprintf(buffer, 32, "%f", delta);
-
-    addstr(buffer);
+    ui_draw_debug(delta);
 }
 
 void st_menu_enter(game_t *game)

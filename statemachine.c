@@ -87,3 +87,8 @@ void sm_run(float delta)
         current_state->run(game_state, delta);
     }
 }
+
+int sm_dbg_getstate()
+{
+    return current_state_id;
+}

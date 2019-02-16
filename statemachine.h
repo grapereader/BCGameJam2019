@@ -25,4 +25,6 @@ void sm_add_state(int state_id, state_t *state);
 
 void sm_run(float delta);
 
+int sm_dbg_getstate();
+
 #endif

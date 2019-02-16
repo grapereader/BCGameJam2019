@@ -1,12 +1,14 @@
 #include <stdio.h>
 #include <sys/time.h>
 #include <time.h>
+#include <stdlib.h>
 
 #include <ncurses.h>
 
 #include "statemachine.h"
 #include "states.h"
 #include "input.h"
+#include "const.h"
 
 game_t game_state;
 
@@ -30,10 +32,17 @@ void runGame() {
 
     int i = 0;
 
-    while (true) {
-        init_pair(1, COLOR_GREEN, COLOR_BLACK);
-        attron(COLOR_PAIR(1));
+    init_pair(PAIR_GREEN, COLOR_GREEN, COLOR_BLACK);
+    init_pair(PAIR_BLUE, COLOR_BLUE, COLOR_BLACK);
+    init_pair(PAIR_CYAN, COLOR_CYAN, COLOR_BLACK);
+    init_pair(PAIR_MAGENTA, COLOR_MAGENTA, COLOR_BLACK);
+    init_pair(PAIR_RED, COLOR_RED, COLOR_BLACK);
+    init_pair(PAIR_WHITE, COLOR_WHITE, COLOR_BLACK);
 
+    init_pair(PAIR_SELECTION_OFF, COLOR_YELLOW, COLOR_BLACK);
+    init_pair(PAIR_SELECTION_ON, COLOR_BLACK, COLOR_YELLOW);
+
+    while (true) {
         gettimeofday(&curr_time, NULL);
 
         uint64_t curr = curr_time.tv_sec * 1000000 + curr_time.tv_usec;
@@ -43,7 +52,6 @@ void runGame() {
         input_run();
         sm_run(delta);
 
-        attroff(COLOR_PAIR(1));
 
         refresh();
 
@@ -56,6 +64,7 @@ void runGame() {
 
 int main(int argc, char **argv)
 {
+    srand(time(NULL));
     stdscr = initscr();
 
     curs_set(0);

@@ -1,19 +1,25 @@
 #include "st_gameplay.h"
 
 #include <stdio.h>
+#include <math.h>
 #include <ncurses.h>
+#include <stdlib.h>
 
 #include "const.h"
 #include "ui.h"
 #include "input.h"
 #include "states.h"
 
+#include "rd_chad.h"
+
 #define BOTTOM_PANEL_HEIGHT 15
 #define RIGHT_PANEL_WIDTH 30
 
-static void draw_ui() {
+static void draw_ui(float delta) {
     ui_draw_border();
+    ui_draw_debug(delta);
 
+    attron(COLOR_PAIR(PAIR_GREEN));
     move(HEIGHT - BOTTOM_PANEL_HEIGHT, 1);
     hline('-', WIDTH - 2);
     move(HEIGHT - BOTTOM_PANEL_HEIGHT + 2, 2);
@@ -24,16 +30,20 @@ static void draw_ui() {
 
     move(2, WIDTH - RIGHT_PANEL_WIDTH + 2);
     addstr("STATUS");
+    attroff(COLOR_PAIR(PAIR_GREEN));
 }
 
 void st_gameplay_enter(game_t *game)
 {
     clear();
+
 }
 
 void st_gameplay_run(game_t *game, float delta)
 {
-    draw_ui();
+    draw_ui(delta);
+
+    rd_chad(delta);
 
     if (CURR_KEY == KEY_LEFT)
     {
