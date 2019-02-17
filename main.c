@@ -25,6 +25,11 @@ void runGame() {
     input_init();
 
     game_t *game_state = (game_t *) malloc(sizeof(game_t));
+    game_state->exit = 0;
+    game_state->bad_vibes = 0;
+    game_state->good_vibes = 0;
+    game_state->power = 10;
+    game_state->energy = 0;
 
     sm_init(game_state);
     states_init();
@@ -54,12 +59,13 @@ void runGame() {
         input_run();
         sm_run(delta);
 
+        if (game_state->exit)
+        {
+            break;
+        }
 
         refresh();
 
-        if (CURR_KEY == KEY_BACKSPACE) {
-            break;
-        }
         nanosleep(&sleep_time, NULL);
     }
 }

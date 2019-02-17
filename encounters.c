@@ -2,7 +2,9 @@
 
 #include <stdlib.h>
 
-#include "encounters/tree.c"
+#include "enc_tree.h"
+#include "enc_lightning.h"
+#include "enc_goat.h"
 
 int encounter_list_len;
 encounter_t **encounter_list;
@@ -26,6 +28,8 @@ void encounters_init()
     encounter_list_len = 0;
 
     add_encounter(encounter_create_tree(create_encounter()));
+    add_encounter(encounter_create_lightning(create_encounter()));
+    add_encounter(encounter_create_goat(create_encounter()));
 }
 
 encounter_t *get_random_encounter()

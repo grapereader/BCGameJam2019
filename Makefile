@@ -10,7 +10,10 @@ OBJECTS=main.o \
 	st_menu.o \
 	st_encounter.o \
 	st_score.o \
-	rd_chad.o
+	rd_chad.o \
+	enc_tree.o \
+	enc_lightning.o \
+	enc_goat.o
 
 %.o: %.c
 	$(CC) -g -c $< -o $@

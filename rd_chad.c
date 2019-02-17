@@ -6,8 +6,8 @@
 #include "ui.h"
 #include "math.h"
 
-#define CHAD_X 90
-#define CHAD_Y 10
+#define CHAD_X 20
+#define CHAD_Y 11
 
 float chad_offset = 0.0;
 float chad_timer = 0;

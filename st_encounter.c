@@ -17,6 +17,8 @@ void st_encounter_enter(game_t *game)
         sm_set_state(STATE_GAMEPLAY);
     }
 
+    game->encounter->init();
+
     curr_choice = 0;
 }
 
@@ -54,14 +56,16 @@ void st_encounter_run(game_t *game, float delta)
         }
     }
 
-    if (CURR_KEY == KEY_RIGHT) {
-        game->encounter->callback[curr_choice](game);
-        sm_set_state(STATE_GAMEPLAY);
-    }
-
     draw_selection_menu(game->encounter);
 
     rd_chad(delta);
+
+    game->encounter->render(delta);
+
+    if (CURR_KEY == 10) {
+        game->encounter->callback[curr_choice](game);
+        sm_set_state(STATE_GAMEPLAY);
+    }
 }
 
 void st_encounter_exit(game_t *game)

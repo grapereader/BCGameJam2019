@@ -11,6 +11,7 @@
 #define PAIR_MAGENTA 4
 #define PAIR_RED 5
 #define PAIR_WHITE 6
+#define PAIR_YELLOW 7
 
 #define PAIR_SELECTION_OFF 7
 #define PAIR_SELECTION_ON 8
