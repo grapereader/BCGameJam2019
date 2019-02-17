@@ -3,6 +3,8 @@
 #include <ncurses.h>
 
 #include "const.h"
+#include "ui.h"
+#include "math.h"
 
 #define CHAD_X 90
 #define CHAD_Y 10

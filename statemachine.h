@@ -1,10 +1,7 @@
 #ifndef STATE_MACHINE_H
 #define STATE_MACHINE_H
 
-typedef struct game_t
-{
-} game_t;
-
+#include "gamemodel.h"
 
 typedef struct state_t
 {

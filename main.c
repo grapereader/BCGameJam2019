@@ -9,8 +9,7 @@
 #include "states.h"
 #include "input.h"
 #include "const.h"
-
-game_t game_state;
+#include "encounters.h"
 
 void runGame() {
     struct timeval curr_time;
@@ -25,8 +24,11 @@ void runGame() {
 
     input_init();
 
-    sm_init(&game_state);
+    game_t *game_state = (game_t *) malloc(sizeof(game_t));
+
+    sm_init(game_state);
     states_init();
+    encounters_init();
 
     sm_set_state(STATE_MENU);
 

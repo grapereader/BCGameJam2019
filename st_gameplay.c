@@ -9,11 +9,11 @@
 #include "ui.h"
 #include "input.h"
 #include "states.h"
+#include "encounters.h"
 
 #include "rd_chad.h"
 
-#define BOTTOM_PANEL_HEIGHT 15
-#define RIGHT_PANEL_WIDTH 30
+float encounter_timer = 0;
 
 static void draw_ui(float delta) {
     ui_draw_border();
@@ -23,7 +23,6 @@ static void draw_ui(float delta) {
     move(HEIGHT - BOTTOM_PANEL_HEIGHT, 1);
     hline('-', WIDTH - 2);
     move(HEIGHT - BOTTOM_PANEL_HEIGHT + 2, 2);
-    addstr("SOME DESCRIPTION HERE");
 
     move(1, WIDTH - RIGHT_PANEL_WIDTH - 2);
     vline('|', HEIGHT - BOTTOM_PANEL_HEIGHT);
@@ -36,7 +35,6 @@ static void draw_ui(float delta) {
 void st_gameplay_enter(game_t *game)
 {
     clear();
-
 }
 
 void st_gameplay_run(game_t *game, float delta)
@@ -44,6 +42,16 @@ void st_gameplay_run(game_t *game, float delta)
     draw_ui(delta);
 
     rd_chad(delta);
+
+    encounter_timer += delta;
+
+    if (encounter_timer > 1000000)
+    {
+        encounter_t *enc = get_random_encounter();
+        game->encounter = enc;
+
+        sm_set_state(STATE_ENCOUNTER);
+    }
 
     if (CURR_KEY == KEY_LEFT)
     {
