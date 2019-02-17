@@ -38,9 +38,9 @@ void st_gameplay_enter(game_t *game)
     encounter_timer = 0;
     income_timer = 0;
 
-    if (audio_music_current() != MUSIC_BG2)
+    if (audio_music_current() != MUSIC_BG_BROKEN)
     {
-        audio_music_play(MUSIC_BG2);
+        audio_music_play(MUSIC_BG_BROKEN);
     }
 }
 
@@ -110,6 +110,12 @@ void st_gameplay_run(game_t *game, float delta)
     if (game->energy > 30 || game->energy < -30)
     {
         sm_set_state(STATE_SCORE);
+    }
+
+    if (CURR_KEY == (int) 'A')
+    {
+        game->good_vibes += 2;
+        game->energy += 2;
     }
 
     if (CURR_KEY == KEY_BACKSPACE)
