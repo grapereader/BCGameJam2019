@@ -1,0 +1,17 @@
+#define WIDTH 180
+#define HEIGHT 50
+
+#define BOTTOM_PANEL_HEIGHT 15
+#define RIGHT_PANEL_WIDTH 30
+
+
+#define PAIR_GREEN 1
+#define PAIR_BLUE 2
+#define PAIR_CYAN 3
+#define PAIR_MAGENTA 4
+#define PAIR_RED 5
+#define PAIR_WHITE 6
+#define PAIR_YELLOW 7
+
+#define PAIR_SELECTION_OFF 7
+#define PAIR_SELECTION_ON 8

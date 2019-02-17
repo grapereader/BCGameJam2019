@@ -1,20 +1,26 @@
 all: game
 
-main.o: main.f90
-	f95 -fbackslash -c main.f90 -o main.o
+OBJECTS=main.o \
+	ui.o \
+	input.o \
+	encounters.o \
+	statemachine.o \
+	states.o \
+	st_gameplay.o \
+	st_menu.o \
+	st_encounter.o \
+	st_score.o \
+	st_message.o \
+	rd_chad.o \
+	enc_tree.o \
+	enc_lightning.o \
+	enc_goat.o
 
-macros.o: macros.c
-	gcc -c macros.c -o macros.o
+%.o: %.c
+	$(CC) -g -c $< -o $@
 
-cfuncs.o: cfuncs.c
-	gcc -c cfuncs.c -o cfuncs.o
-
-ncurses.o: ncurses.f90
-	f95 -c ncurses.f90 -o ncurses.o
-
-game: cfuncs.o main.o ncurses.o macros.o
-	f95 -Wl,-rpath=/usr/local/lib/gcc8/ -I. -L/usr/local/lib/ cfuncs.o main.o ncurses.o macros.o -lncurses -o game
+game: $(OBJECTS)
+	$(CC) -g $^ -lncurses -lm -o game
 
 clean:
-	rm -rf *.mod *.o game
-
+	rm -rf *.o game
