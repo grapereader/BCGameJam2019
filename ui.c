@@ -5,6 +5,8 @@
 #include "const.h"
 #include "statemachine.h"
 
+#define DEBUG 0
+
 void ui_draw_border()
 {
     attron(COLOR_PAIR(1));
@@ -25,6 +27,11 @@ void ui_draw_border()
 
 void ui_draw_debug(float delta)
 {
+    if (!DEBUG)
+    {
+        return;
+    }
+
     attron(COLOR_PAIR(2));
     move(1, WIDTH + 3);
 

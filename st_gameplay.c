@@ -10,6 +10,7 @@
 #include "input.h"
 #include "states.h"
 #include "encounters.h"
+#include "audio.h"
 
 #include "rd_chad.h"
 
@@ -36,6 +37,11 @@ void st_gameplay_enter(game_t *game)
     clear();
     encounter_timer = 0;
     income_timer = 0;
+
+    if (audio_music_current() != MUSIC_BG2)
+    {
+        audio_music_play(MUSIC_BG2);
+    }
 }
 
 static void add_int(int val)

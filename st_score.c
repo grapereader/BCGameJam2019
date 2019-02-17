@@ -7,6 +7,7 @@
 #include "const.h"
 #include "ui.h"
 #include "input.h"
+#include "audio.h"
 
 static float score_timer;
 
@@ -30,6 +31,8 @@ void st_score_enter(game_t *game)
 
         move(HEIGHT / 2 + 2, WIDTH / 2 - strlen(win_line2) / 2);
         addstr(win_line2);
+
+        audio_music_play(MUSIC_WIN);
     }
     else
     {
@@ -38,6 +41,8 @@ void st_score_enter(game_t *game)
 
         move(HEIGHT / 2 + 2, WIDTH / 2 - strlen(loss_line2) / 2);
         addstr(loss_line2);
+
+        audio_music_play(MUSIC_LOSS);
     }
     attroff(COLOR_PAIR(PAIR_YELLOW));
 }
@@ -46,7 +51,7 @@ void st_score_run(game_t *game, float delta)
 {
     score_timer += delta;
 
-    if (score_timer > 20 * 1000000 || CURR_KEY != ERR)
+    if (score_timer > 30 * 1000000 || CURR_KEY != ERR)
     {
         sm_set_state(STATE_MENU);
     }

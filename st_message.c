@@ -34,7 +34,7 @@ void st_message_enter(game_t *game)
     }
     attroff(COLOR_PAIR(PAIR_WHITE));
 
-    audio_play(SOUND_MSG);
+    audio_sound_play(SOUND_MSG);
 }
 
 void st_message_run(game_t *game, float delta)

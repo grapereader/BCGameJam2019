@@ -8,6 +8,7 @@
 #include "input.h"
 #include "const.h"
 #include "ui.h"
+#include "audio.h"
 
 const int menu_len = 2;
 const char *menu[2];
@@ -33,6 +34,8 @@ void st_menu_enter(game_t *game)
     menu[1] = "  QUIT  ";
 
     curr_selection = 0;
+
+    audio_music_play(MUSIC_MENU_BROKEN);
 }
 
 void st_menu_run(game_t *game, float delta)
@@ -78,6 +81,8 @@ void st_menu_run(game_t *game, float delta)
         if (curr_selection == 0)
         {
             sm_set_state(STATE_GAMEPLAY);
+
+            audio_sound_play(SOUND_BTN_DOWN);
         } else if (curr_selection == 1) {
             game->exit = 1;
         }
@@ -88,6 +93,8 @@ void st_menu_run(game_t *game, float delta)
         if (curr_selection < menu_len - 1)
         {
             curr_selection++;
+
+            audio_sound_play(SOUND_SELECT);
         }
     }
     else if (CURR_KEY == KEY_UP)
@@ -95,6 +102,8 @@ void st_menu_run(game_t *game, float delta)
         if (curr_selection > 0)
         {
             curr_selection--;
+
+            audio_sound_play(SOUND_SELECT);
         }
     }
 }
