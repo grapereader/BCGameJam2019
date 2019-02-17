@@ -3,6 +3,7 @@ all: game
 OBJECTS=main.o \
 	ui.o \
 	input.o \
+	audio.o \
 	encounters.o \
 	statemachine.o \
 	states.o \
@@ -17,10 +18,10 @@ OBJECTS=main.o \
 	enc_goat.o
 
 %.o: %.c
-	$(CC) -g -c $< -o $@
+	$(CC) -g $(shell pkg-config --cflags sdl2 SDL2_mixer) -c $< -o $@
 
 game: $(OBJECTS)
-	$(CC) -g $^ -lncurses -lm -o game
+	$(CC) -g $^ $(shell pkg-config --libs sdl2 SDL2_mixer) -lncurses -lm -o game
 
 clean:
 	rm -rf *.o game

@@ -10,6 +10,7 @@
 #include "input.h"
 #include "const.h"
 #include "encounters.h"
+#include "audio.h"
 
 void runGame() {
     struct timeval curr_time;
@@ -23,6 +24,7 @@ void runGame() {
     last_time = curr_time.tv_sec * 1000000 + curr_time.tv_usec;
 
     input_init();
+    audio_init();
 
     game_t *game_state = (game_t *) malloc(sizeof(game_t));
 

@@ -8,6 +8,8 @@
 #include "rd_chad.h"
 #include "const.h"
 
+#include "audio.h"
+
 int curr_choice = 0;
 
 int max_choice = 0;
@@ -22,6 +24,8 @@ void st_encounter_enter(game_t *game)
     game->encounter->init();
 
     curr_choice = 0;
+
+    audio_play(SOUND_ENCOUNTER);
 }
 
 static void draw_selection_menu(game_t *game, encounter_t *encounter)
@@ -58,11 +62,13 @@ void st_encounter_run(game_t *game, float delta)
         if (curr_choice < max_choice - 1)
         {
             curr_choice++;
+            audio_play(SOUND_BTN_DOWN);
         }
     } else if (CURR_KEY == KEY_UP) {
         if (curr_choice > 0)
         {
             curr_choice--;
+            audio_play(SOUND_BTN_UP);
         }
     }
 
