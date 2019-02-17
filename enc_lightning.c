@@ -10,9 +10,19 @@ void _enc_lightning_sap(game_t *game)
     game->power += 20;
 }
 
+int _enc_lightning_sap_can_execute(game_t *game)
+{
+    return 1;
+}
+
 void _enc_lightning_watch(game_t *game)
 {
     game->good_vibes += 3;
+}
+
+int _enc_lightning_watch_can_execute(game_t *game)
+{
+    return 1;
 }
 
 void _enc_lightning_dance(game_t *game)
@@ -20,10 +30,19 @@ void _enc_lightning_dance(game_t *game)
     game->bad_vibes -= 3;
 }
 
+int _enc_lightning_dance_can_execute(game_t *game)
+{
+    return game->bad_vibes > 0;
+}
+
 void _enc_lightning_redirect(game_t *game)
 {
     game->power += 100;
     game->bad_vibes += 3;
+}
+int _enc_lightning_redirect_can_execute(game_t *game)
+{
+    return 1;
 }
 
 static float render_timer;
@@ -118,15 +137,19 @@ encounter_t *encounter_create_lightning(encounter_t *encounter)
 
     encounter->choices[0] = "(+20 Power) Sap the lightning for power";
     encounter->callback[0] = _enc_lightning_sap;
+    encounter->can_execute[0] = _enc_lightning_sap_can_execute;
 
     encounter->choices[1] = "(+3 Good Vibes) Look at the pretty lights!!!";
     encounter->callback[1] = _enc_lightning_watch;
+    encounter->can_execute[1] = _enc_lightning_watch_can_execute;
     
     encounter->choices[2] = "(-3 Bad Vibes) Dance in middle of the electric firestorm to cleanse yourself of bad vibes";
     encounter->callback[2] = _enc_lightning_dance;
+    encounter->can_execute[2] = _enc_lightning_dance_can_execute;
 
     encounter->choices[3] = "(+100 Power, +3 Bad Vibes) Redirect the lightning to hit unsuspecting three-dimensional lifeforms.";
     encounter->callback[3] = _enc_lightning_redirect;
+    encounter->can_execute[3] = _enc_lightning_redirect_can_execute;
 
     encounter->choice_len = 4;
 

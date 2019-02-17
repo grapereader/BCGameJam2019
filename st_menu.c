@@ -23,6 +23,12 @@ void st_menu_enter(game_t *game)
 {
     clear();
 
+    game->exit = 0;
+    game->bad_vibes = 0;
+    game->good_vibes = 0;
+    game->power = 10;
+    game->energy = 0;
+
     menu[0] = "  PLAY  ";
     menu[1] = "  QUIT  ";
 

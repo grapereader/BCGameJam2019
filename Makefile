@@ -10,6 +10,7 @@ OBJECTS=main.o \
 	st_menu.o \
 	st_encounter.o \
 	st_score.o \
+	st_message.o \
 	rd_chad.o \
 	enc_tree.o \
 	enc_lightning.o \

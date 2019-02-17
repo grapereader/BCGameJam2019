@@ -76,15 +76,19 @@ void st_gameplay_run(game_t *game, float delta)
     encounter_timer += delta;
     income_timer += delta;
 
+    if (game->bad_vibes < 0)
+    {
+        game->bad_vibes = 0;
+    }
+
     if (income_timer > 3 * 1000000)
     {
         game->energy += game->good_vibes;
-
         game->good_vibes -= game->bad_vibes;
-
         game->power += game->energy / 2;
-
         income_timer = 0;
+
+        ui_clear_sprite(WIDTH - RIGHT_PANEL_WIDTH + 2, 2, 16, 16);
     }
 
     if (encounter_timer > 4 * 1000000)
@@ -93,6 +97,11 @@ void st_gameplay_run(game_t *game, float delta)
         game->encounter = enc;
 
         sm_set_state(STATE_ENCOUNTER);
+    }
+
+    if (game->energy > 30 || game->energy < -30)
+    {
+        sm_set_state(STATE_SCORE);
     }
 
     if (CURR_KEY == KEY_BACKSPACE)

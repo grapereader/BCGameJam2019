@@ -19,6 +19,11 @@ static encounter_t *create_encounter()
 {
     encounter_t *encounter = (encounter_t *) malloc(sizeof(encounter_t));
     encounter->choice_len = 0;
+
+    encounter->custom_scene_change[0] = 0;
+    encounter->custom_scene_change[1] = 0;
+    encounter->custom_scene_change[2] = 0;
+    encounter->custom_scene_change[3] = 0;
     return encounter;
 }
 

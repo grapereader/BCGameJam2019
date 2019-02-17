@@ -10,15 +10,30 @@ void _enc_tree_magic(game_t *game)
     game->good_vibes += 1;
 }
 
+int _enc_tree_magic_can_execute(game_t *game)
+{
+    return 1;
+}
+
 void _enc_tree_steal(game_t *game)
 {
     game->power += 10;
     game->bad_vibes += 1;
 }
 
+int _enc_tree_steal_can_execute(game_t *game)
+{
+    return 1;
+}
+
 void _enc_tree_omg(game_t *game)
 {
     game->good_vibes -= 1;
+}
+
+int _enc_tree_omg_can_execute(game_t *game)
+{
+    return 1;
 }
 
 static float render_timer;
@@ -179,12 +194,15 @@ encounter_t *encounter_create_tree(encounter_t *encounter)
 
     encounter->choices[0] = "(+1 Good Vibes) Use your magic interdimensional abilities to accellerate the tree's photosynthesis process";
     encounter->callback[0] = _enc_tree_magic;
+    encounter->can_execute[0] = _enc_tree_magic_can_execute;
 
     encounter->choices[1] = "(+10 Power, +1 Bad Vibes) Steal water from the tree";
     encounter->callback[1] = _enc_tree_steal;
+    encounter->can_execute[1] = _enc_tree_steal_can_execute;
     
-    encounter->choices[2] = "(-1 Bad Vibes) AAHH OMG WHAT THE FRICK?!?!";
+    encounter->choices[2] = "(-1 Good Vibes) AAHH OMG WHAT THE FRICK?!?!";
     encounter->callback[2] = _enc_tree_omg;
+    encounter->can_execute[2] = _enc_tree_omg_can_execute;
 
     encounter->choice_len = 3;
 

@@ -10,6 +10,8 @@
 
 int curr_choice = 0;
 
+int max_choice = 0;
+
 void st_encounter_enter(game_t *game)
 {
     if (game->encounter == NULL)
@@ -22,20 +24,28 @@ void st_encounter_enter(game_t *game)
     curr_choice = 0;
 }
 
-static void draw_selection_menu(encounter_t *encounter)
+static void draw_selection_menu(game_t *game, encounter_t *encounter)
 {
     attron(COLOR_PAIR(PAIR_CYAN));
     move(HEIGHT - BOTTOM_PANEL_HEIGHT + 2, 3);
     addstr(encounter->description);
     attroff(COLOR_PAIR(PAIR_CYAN));
 
+    int offset = 0;
     for (int i = 0; i < encounter->choice_len; i++)
     {
-        move(HEIGHT - BOTTOM_PANEL_HEIGHT + 4 + (2 * i), 3);
-        attron(COLOR_PAIR(i == curr_choice ? PAIR_SELECTION_ON : PAIR_SELECTION_OFF));
-        addstr(encounter->choices[i]);
-        attroff(COLOR_PAIR(i == curr_choice ? PAIR_SELECTION_ON : PAIR_SELECTION_OFF));
+        if (encounter->can_execute[i](game))
+        {
+            move(HEIGHT - BOTTOM_PANEL_HEIGHT + 4 + (2 * offset), 3);
+            attron(COLOR_PAIR(offset == curr_choice ? PAIR_SELECTION_ON : PAIR_SELECTION_OFF));
+            addstr(encounter->choices[i]);
+            attroff(COLOR_PAIR(offset == curr_choice ? PAIR_SELECTION_ON : PAIR_SELECTION_OFF));
+
+            offset++;
+        }
     }
+
+    max_choice = offset;
 }
 
 void st_encounter_run(game_t *game, float delta)
@@ -45,7 +55,7 @@ void st_encounter_run(game_t *game, float delta)
 
     if (CURR_KEY == KEY_DOWN)
     {
-        if (curr_choice < game->encounter->choice_len - 1)
+        if (curr_choice < max_choice - 1)
         {
             curr_choice++;
         }
@@ -56,15 +66,32 @@ void st_encounter_run(game_t *game, float delta)
         }
     }
 
-    draw_selection_menu(game->encounter);
+    draw_selection_menu(game, game->encounter);
 
     rd_chad(delta);
 
     game->encounter->render(delta);
 
     if (CURR_KEY == 10) {
-        game->encounter->callback[curr_choice](game);
-        sm_set_state(STATE_GAMEPLAY);
+        int offset = 0;
+        int skip_scene_change = 0;
+        for (int i = 0; i < game->encounter->choice_len; i++)
+        {
+            if (game->encounter->can_execute[i](game))
+            {
+                if (offset == curr_choice)
+                {
+                    game->encounter->callback[i](game);
+                    skip_scene_change = game->encounter->custom_scene_change[i];
+                    break;
+                }
+                offset++;
+            }
+        }
+        if (!skip_scene_change)
+        {
+            sm_set_state(STATE_GAMEPLAY);
+        }
     }
 }
 
