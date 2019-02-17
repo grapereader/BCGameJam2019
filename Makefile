@@ -15,7 +15,8 @@ OBJECTS=main.o \
 	rd_chad.o \
 	enc_tree.o \
 	enc_lightning.o \
-	enc_goat.o
+	enc_goat.o \
+	enc_core.o
 
 %.o: %.c
 	$(CC) -g $(shell pkg-config --cflags sdl2 SDL2_mixer) -c $< -o $@

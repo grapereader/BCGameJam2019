@@ -7,6 +7,42 @@
 
 #define DEBUG 0
 
+void ui_draw_help()
+{
+    const char *lines[19];
+
+    lines[0] = "Your goal is to get";
+    lines[1] = "your positive energy";
+    lines[2] = "over 30, so you can";
+    lines[3] = "ascend from this 2D";
+    lines[4] = "plane and move to more";
+    lines[5] = "amicable dimensions";
+    lines[6] = "";
+    lines[7] = "Income is calculated";
+    lines[8] = "after every encounter:";
+    lines[9] = "";
+    lines[10] = "Bad Vibes subtract from";
+    lines[11] = "Good Vibes";
+    lines[12] = "";
+    lines[13] = "Good Vibes add to";
+    lines[14] = "positive energy and can";
+    lines[15] = "go negative.";
+    lines[16] = "";
+    lines[17] = "Positive energy adds";
+    lines[18] = "to power.";
+
+    int x = WIDTH - RIGHT_PANEL_WIDTH + 3;
+    int y = HEIGHT - BOTTOM_PANEL_HEIGHT - 21;
+
+    attron(COLOR_PAIR(PAIR_WHITE));
+    for (int i = 0; i < 19; i++)
+    {
+        move(y + i, x);
+        addstr(lines[i]);
+    }
+    attroff(COLOR_PAIR(PAIR_WHITE));
+}
+
 void ui_draw_border()
 {
     attron(COLOR_PAIR(1));

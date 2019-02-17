@@ -8,11 +8,12 @@
 void _enc_tree_magic(game_t *game)
 {
     game->good_vibes += 1;
+    game->power -= 5;
 }
 
 int _enc_tree_magic_can_execute(game_t *game)
 {
-    return 1;
+    return game->power > 5;
 }
 
 void _enc_tree_steal(game_t *game)
@@ -192,7 +193,7 @@ encounter_t *encounter_create_tree(encounter_t *encounter)
 {
     encounter->description = "You find yourself slowly passing through some weird morphing starlike object. It might be a tree! What do you choose?";
 
-    encounter->choices[0] = "(+1 Good Vibes) Use your magic interdimensional abilities to accellerate the tree's photosynthesis process";
+    encounter->choices[0] = "(+1 Good Vibes, -5 Power) Use your magic interdimensional abilities to accellerate the tree's photosynthesis process";
     encounter->callback[0] = _enc_tree_magic;
     encounter->can_execute[0] = _enc_tree_magic_can_execute;
 

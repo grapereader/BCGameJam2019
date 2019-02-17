@@ -79,6 +79,8 @@ void st_gameplay_run(game_t *game, float delta)
     add_int(game->bad_vibes);
     attroff(COLOR_PAIR(PAIR_YELLOW));
 
+    ui_draw_help();
+
     encounter_timer += delta;
     income_timer += delta;
 

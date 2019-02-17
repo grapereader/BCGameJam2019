@@ -15,8 +15,8 @@ void st_score_enter(game_t *game)
 {
     score_timer = 0;
 
-    const char *win_line1 = "Wow. Look at you go. You got built up enough energy to break free from the shackles of 2D existence.";
-    const char *win_line2 = "Congratulations.";
+    const char *win_line1 = "Wow. Look at you go. You've built up enough positive energy to break free from the shackles of 2D existence.";
+    const char *win_line2 = "Congratulations. Enjoy your enlightenment.";
 
     const char *loss_line1 = "Oof. Not only did you fail to ascend, you've built up so much negative energy you'll be stuck in 2D for eternity";
     const char *loss_line2 = "Too bad. Try again!";
