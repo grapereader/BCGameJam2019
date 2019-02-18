@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <ncurses.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "states.h"
 #include "input.h"
@@ -75,6 +76,13 @@ void st_menu_run(game_t *game, float delta)
         addstr(menu[i]);
         attroff(COLOR_PAIR(i == curr_selection ? PAIR_SELECTION_ON : PAIR_SELECTION_OFF));
     }
+
+    const char *credits = "Design, Programming, and Music by Seth Traverse";
+
+    move(HEIGHT - 4, WIDTH / 2 - strlen(credits) / 2);
+    attron(COLOR_PAIR(PAIR_CYAN));
+    addstr(credits);
+    attroff(COLOR_PAIR(PAIR_CYAN));
 
     if (CURR_KEY == 10)
     {
